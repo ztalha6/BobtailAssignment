@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "844320286605",
+    "project_id": "bobtail-370ae",
+    "storage_bucket": "bobtail-370ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844320286605:android:1e838a2ab6ee10d2337fc4",
+        "android_client_info": {
+          "package_name": "com.example.bobtail_assignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844320286605-eo9osngm5jmennudc2r9pm5o2oj3nl6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_cpCZthyBQ7NKD0G-0vfhyYuPtGKrS1k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844320286605-eo9osngm5jmennudc2r9pm5o2oj3nl6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
