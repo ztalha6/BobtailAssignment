@@ -11,3 +11,9 @@ A asssignment from Bobtail company.
 # Note
 
 Hopefully you will see my logic of data binding and mapping. Also you'll be noticing the defained and clean structure of application rather than dummy data that I have filled on Firestore :)
+
+# Credentials
+
+Email: talha@gmail.com
+Password: talha123
+
