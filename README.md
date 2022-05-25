@@ -14,6 +14,6 @@ Hopefully you will see my logic of data binding and mapping. Also you'll be noti
 
 # Credentials
 
-Email: talha@gmail.com
+Email: talha@gmail.com \n
 Password: talha123
 
