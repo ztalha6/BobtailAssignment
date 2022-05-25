@@ -1,25 +1,12 @@
+import 'package:bobtail_assignment/app/data/model/response_model.dart';
+import 'package:bobtail_assignment/app/data/provider/auth_provider.dart';
 import 'package:bobtail_assignment/app/data/services/snackbar_manager.dart';
 import 'package:bobtail_assignment/app/data/services/validator.dart';
 import 'package:bobtail_assignment/app/modules/home/views/home_view.dart';
-import 'package:bobtail_assignment/app/routes/app_pages.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignInController extends GetxController {
-  //TODO: Implement SignInController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -27,7 +14,6 @@ class SignInController extends GetxController {
   RxBool isLoading = false.obs;
 
   RxnString emailError = RxnString();
-
   RxnString passwordError = RxnString();
 
   Future<void> loginPressed() async {
@@ -39,25 +25,14 @@ class SignInController extends GetxController {
 
     if (emailError.value == null && passwordError.value == null) {
       isLoading.value = true;
-      try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-        print(credential);
+      ResponseModel response = await AuthProvider().login(email, password);
+      if (response.success) {
         SnackbarManager().showSuccessSnackbar('Login successfull');
-
         Get.to(() => HomeView());
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
+      } else {
+        SnackbarManager().showAlertSnackbar(response.error!);
       }
       isLoading.value = false;
     }
   }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

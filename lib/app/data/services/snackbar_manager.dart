@@ -22,12 +22,12 @@ class SnackbarManager {
             Expanded(child: Text(message)),
           ],
         ),
-        duration: const Duration(seconds: 1),
+        duration: const Duration(seconds: 2),
         snackPosition: position);
   }
 
   void showAlertSnackbar(String message,
-      {SnackPosition position = SnackPosition.TOP,
+      {SnackPosition position = SnackPosition.BOTTOM,
       String? buttonText,
       void Function()? buttonOnPressed}) {
     Get.snackbar('', '',

@@ -1,5 +1,5 @@
 import 'package:bobtail_assignment/app/modules/home/controllers/home_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bobtail_assignment/app/modules/home/widgets/food_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,77 +10,60 @@ class HomeView extends GetView<HomeController> {
     Get.put(HomeController());
     return GetX<HomeController>(builder: (context) {
       return Scaffold(
-        appBar: AppBar(title: Text('Foods')),
+        appBar: AppBar(
+          title: Text('Foods'),
+          actions: [
+            IconButton(
+              onPressed: () => controller.onInit(),
+              icon: Icon(Icons.refresh),
+            )
+          ],
+        ),
         body: Column(
           children: [
             Expanded(
-                flex: 1,
+              flex: 1,
+              child: Visibility(
+                visible: !controller.isLoading.value,
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    FilterChip(
-                      selected: controller.isItalian.value,
-                      label: Text("Italian"),
-                      onSelected: (bool value) {
-                        controller.isItalian.value = value;
-                      },
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    FilterChip(
-                      selected: controller.isPakistani.value,
-                      label: Text("Pakistani"),
-                      onSelected: (bool value) {
-                        controller.isPakistani.value = value;
-                      },
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    FilterChip(
-                      selected: controller.isIndian.value,
-                      label: Text("Indian"),
-                      onSelected: (bool value) {
-                        controller.isIndian.value = value;
-                      },
-                    ),
+                    for (int i = 0; i < controller.filters.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: FilterChip(
+                          selected: controller.filters[i].isSelected!,
+                          label: Text(controller.filters[i].name!),
+                          onSelected: (bool value) {
+                            controller.setFilter(i, value);
+                          },
+                        ),
+                      ),
                   ],
-                )),
+                ),
+              ),
+            ),
+            if (controller.isLoading.value)
+              Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              ),
             Expanded(
               flex: 9,
-              child: StreamBuilder<QuerySnapshot>(
-                stream: controller.foods,
-                builder: (BuildContext context, AsyncSnapshot snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Error occured while dfetching data!');
-                  }
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text('Loading');
-                  }
-                  final data = snapshot.requireData;
-                  return GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                    ),
-                    itemCount: data.size,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: Column(
-                          children: [
-                            Image.network(data.docs[index]['imageUrl']),
-                            SizedBox(height: 10),
-                            Text(data.docs[index]['name']),
-                            Text(data.docs[index]['cuisine']),
-                          ],
-                        ),
-                      );
-                    },
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                ),
+                itemCount: controller.filteredFoods.isEmpty
+                    ? controller.foods.length
+                    : controller.filteredFoods.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return FoodWidget(
+                    food: controller.filteredFoods.isEmpty
+                        ? controller.foods[index]
+                        : controller.filteredFoods[index],
                   );
                 },
               ),
