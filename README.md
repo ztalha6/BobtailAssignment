@@ -3,8 +3,8 @@
 A asssignment from Bobtail company. 
 
 - Email/Password Sign-In through firebase.
-- Fetching food data from Firebase.
-- I have added ramndom foods to firebase named 'food'.
+- Fetching food data from Firestore.
+- I have added random foods to firestore named 'food'.
 - I have used 3 filter types as guided.
 - Used GetX as state managment tool.
 
