@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 
 class SnackbarManager {
   void showSuccessSnackbar(String message,
-      {SnackPosition position = SnackPosition.TOP}) {
+      {SnackPosition position = SnackPosition.BOTTOM}) {
     Get.snackbar('', '',
         boxShadows: [
-          const BoxShadow(
-              color: Colors.black, spreadRadius: 10, blurRadius: 100),
+          const BoxShadow(color: Colors.black, spreadRadius: 2, blurRadius: 50),
         ],
         backgroundColor: Colors.white,
         titleText: Container(),
@@ -23,7 +22,7 @@ class SnackbarManager {
             Expanded(child: Text(message)),
           ],
         ),
-        duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 1),
         snackPosition: position);
   }
 

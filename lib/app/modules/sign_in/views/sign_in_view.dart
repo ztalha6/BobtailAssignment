@@ -1,16 +1,15 @@
-import 'package:bobtail_assignment/sign_in/sign_in_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:get/get.dart';
 
-class SignInView extends StatelessWidget {
-  const SignInView({Key? key}) : super(key: key);
+import '../controllers/sign_in_controller.dart';
 
+class SignInView extends GetView<SignInController> {
   @override
   Widget build(BuildContext context) {
-    Get.put(SignInViewModel());
-    return GetX<SignInViewModel>(builder: (m) {
+    return GetX<SignInController>(builder: (m) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(title: const Text('Sign In')),
@@ -26,7 +25,7 @@ class SignInView extends StatelessWidget {
                       text: 'Welcome to '.tr,
                       style: Theme.of(context).textTheme.headline5!),
                   TextSpan(
-                      text: 'Wallets'.tr,
+                      text: 'Bobtail'.tr,
                       style: Theme.of(context).textTheme.headline5!.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).primaryColor)),
@@ -69,18 +68,6 @@ class SignInView extends StatelessWidget {
                           },
                         )),
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.end,
-                  //   children: [
-                  //     TextButton(
-                  //       onPressed: () {
-                  //         //go to forgot password screen
-                  //         // Get.to(() => const ForgotPasswordView());
-                  //       },
-                  //       child: Text('forgot password?'.tr),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -109,22 +96,6 @@ class SignInView extends StatelessWidget {
                                 : () {
                                     m.loginPressed();
                                   }),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Dont have an account?'.tr),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Sign up',
-                          style: TextStyle(color: Colors.blue),
-                        ),
                       ),
                     ],
                   ),
